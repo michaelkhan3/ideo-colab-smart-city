@@ -13,6 +13,8 @@ app.get('/', function (req, res){
 io.on('connection', function (socket){
   console.log('a user connected')
 
+  io.emit('pushMessage', 'this is a push')
+
   socket.on('disconnect', function (){
     console.log('user disconnected')
   })
