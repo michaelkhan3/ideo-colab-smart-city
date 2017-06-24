@@ -1,3 +1,8 @@
+First run this command:
+```
+npm install
+```
+
 To run http server, run this command in the `basic-node` folder:
 ```
 node index.js
