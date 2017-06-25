@@ -71,7 +71,7 @@ function pushData () {
     io.emit('pushMessage', typesWithData)
 
     pushData()
-  }, 5000)
+  }, 15000)
 }
 
 // This shows up in your terminal when you load the web page
