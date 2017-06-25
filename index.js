@@ -2,6 +2,17 @@ const express = require('express')
 var app = require('express')()
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
+const MongoClient = require('mongodb').MongoClient
+  , assert = require('assert')
+
+const mongoUrl = 'mongodb://smartcity:citysmart@ds135812.mlab.com:35812/smart_city'
+
+MongoClient.connect(mongoUrl, function(err, db) {
+  assert.equal(null, err);
+  console.log("Connected successfully to server");
+
+  db.close()
+})
 
 // Serve the CSS as a static asset
 app.use(express.static(__dirname + '/'))
