@@ -18,26 +18,41 @@ app.get('/', function (req, res){
 })
 
 let count = 1
-function pushDelayed () {
-  console.log('-----> pushDelayed()')
-
+function pushData () {
   setTimeout(function () {
-    const humidity = '5 %'
 
-    io.emit('pushMessage', { humidity })
+    // Set this to new data, it'll show up on the web page
+    const humidity = '1 %'
+    const rain = '2 %'
+    const gas = '3 %'
+    const traffic = '4 %'
+    const fire = '5 %'
+    const flooding = '6 %'
+    const co2 = '7 %'
+    const trafficJam = '8 %'
 
-    if (count <= 10) {
-      pushDelayed()
-    } else {
-      return
-    }
+    // "mongodb://smartcity:citysmart@ds135812.mlab.com:35812/smart_city")
+
+    // You can ignore this. It pushed data to the front end
+    io.emit('pushMessage', { 
+      humidity,
+      rain,
+      gas,
+      traffic,
+      fire,
+      flooding,
+      co2,
+      trafficJam
+    })
   }, 1000)
 }
 
+// This shows up in your terminal when you load the web page
 io.on('connection', function (socket){
   console.log('a user connected')
 
-  pushDelayed()
+  // This function gets called to display data
+  pushData()
   
   socket.on('disconnect', function (){
     console.log('user disconnected')

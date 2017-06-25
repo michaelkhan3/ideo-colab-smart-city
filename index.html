@@ -5,11 +5,25 @@
       var socket = io()
 
       const humiditySelector = '#p-2-box-68 div span' 
+      const rainSelector = '#p-2-box-69 div span'
+      const gasSelector = '#p-2-box-70 div span'
+      const trafficSelector = '#p-2-box-71 div span'
+      const fireSelector = '#p-2-box-76 div span'
+      const floodingSelector = '#p-2-box-77 div span'
+      const co2Selector = '#p-2-box-78 div span'
+      const trafficJamSelector = '#p-2-box-79 div span'
 
       socket.on('pushMessage', function (message) {
       	console.log('------> pushMessage: ', JSON.stringify(message, null, 2))
 
         $(humiditySelector).text(message.humidity).html()
+        $(rainSelector).text(message.rain).html()
+        $(gasSelector).text(message.gas).html()
+        $(trafficSelector).text(message.traffic).html()
+        $(fireSelector).text(message.fire).html()
+        $(floodingSelector).text(message.flooding).html()
+        $(co2Selector).text(message.co2).html()
+        $(trafficJamSelector).text(message.trafficJam).html()
       })
     </script>
 
