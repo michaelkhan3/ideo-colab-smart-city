@@ -19,17 +19,19 @@ MongoClient.connect(mongoUrl, function(error, db) {
   }
 
   console.log('Connected to MongoDB!')
+  db.close()
 
-  getAllReadings(db, function (error, readings) {
-    if (error) {
-      console.log('Error: ', error)
-      return
-    }
+  // Comment this back in if you want to see what's in the table
+  // getAllReadings(db, function (error, readings) {
+  //   if (error) {
+  //     console.log('Error: ', error)
+  //     return
+  //   }
 
-    console.log('All readings: ', readings)
+  //   console.log('All readings: ', readings)
 
-    db.close()
-  })
+  //   db.close()
+  // })
 })
 
 // Collection: reading
@@ -48,32 +50,28 @@ app.get('/', function (req, res){
   res.sendFile(__dirname + '/index.html')
 })
 
-let count = 1
 function pushData () {
   setTimeout(function () {
+    const types = ['humidity', 'rain', 'gas', 'traffic', 'fire', 'flooding', 'co2', 'trafficJam']
 
-    // Set this to new data, it'll show up on the web page
-    const humidity = '1 %'
-    const rain = '2 %'
-    const gas = '3 %'
-    const traffic = '4 %'
-    const fire = '5 %'
-    const flooding = '6 %'
-    const co2 = '7 %'
-    const trafficJam = '8 %'
+    const typesWithData = {}
+    types.forEach(function (type) {
+      let value = Math.floor((Math.random() * 100) + 1)
+
+      if (value < 10) {
+        value += 10
+      } else if (value > 70) {
+        value -= 30
+      }
+
+      typesWithData[type] = value + ' %'
+    })
 
     // You can ignore this. It pushed data to the front end
-    io.emit('pushMessage', { 
-      humidity,
-      rain,
-      gas,
-      traffic,
-      fire,
-      flooding,
-      co2,
-      trafficJam
-    })
-  }, 1000)
+    io.emit('pushMessage', typesWithData)
+
+    pushData()
+  }, 5000)
 }
 
 // This shows up in your terminal when you load the web page
