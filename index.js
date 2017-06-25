@@ -17,24 +17,24 @@ app.get('/', function (req, res){
   res.sendFile(__dirname + '/index.html')
 })
 
-// let count = 1
-// function pushDelayed () {
-//   setTimeout(function () {
-//     io.emit('pushMessage', 'this is a push ' + count)
-//     count++
+let count = 1
+function pushDelayed () {
+  setTimeout(function () {
+    io.emit('pushMessage', 'this is a push ' + count)
+    count++
 
-//     if (count <= 10) {
-//       pushDelayed()
-//     } else {
-//       return
-//     }
-//   }, 1000)
-// }
+    if (count <= 10) {
+      pushDelayed()
+    } else {
+      return
+    }
+  }, 1000)
+}
 
 io.on('connection', function (socket){
   console.log('a user connected')
 
-  // pushDelayed()
+  pushDelayed()
   
   socket.on('disconnect', function (){
     console.log('user disconnected')

@@ -4,13 +4,13 @@
     <script>
       var socket = io()
 
-      // socket.on('pushMessage', function (message) {
-      //   const toAppend = '<p>' + message + '</p>'
+      const humiditySelector = '#p-2-box-68 div span' 
 
-      //   $('body').append(toAppend)
-      // })
+      socket.on('pushMessage', function (message) {
+        const toAppend = '<h1>WHATS CRACKIN</h1>'
 
-      // :3000/stylesheets/player-engine-export-min.css
+        $(humiditySelector).append(toAppend)
+      })
     </script>
 
 		<meta charset="utf-8">
