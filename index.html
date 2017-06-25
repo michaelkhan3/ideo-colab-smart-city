@@ -7,9 +7,9 @@
       const humiditySelector = '#p-2-box-68 div span' 
 
       socket.on('pushMessage', function (message) {
-        const toAppend = '<h1>WHATS CRACKIN</h1>'
+      	console.log('------> pushMessage: ', JSON.stringify(message, null, 2))
 
-        $(humiditySelector).append(toAppend)
+        $(humiditySelector).text(message.humidity).html()
       })
     </script>
 

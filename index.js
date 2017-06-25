@@ -19,9 +19,12 @@ app.get('/', function (req, res){
 
 let count = 1
 function pushDelayed () {
+  console.log('-----> pushDelayed()')
+
   setTimeout(function () {
-    io.emit('pushMessage', 'this is a push ' + count)
-    count++
+    const humidity = '5 %'
+
+    io.emit('pushMessage', { humidity })
 
     if (count <= 10) {
       pushDelayed()
