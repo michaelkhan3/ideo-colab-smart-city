@@ -3,16 +3,36 @@ var app = require('express')()
 var http = require('http').Server(app)
 var io = require('socket.io')(http)
 const MongoClient = require('mongodb').MongoClient
-  , assert = require('assert')
 
 const mongoUrl = 'mongodb://smartcity:citysmart@ds135812.mlab.com:35812/smart_city'
 
-MongoClient.connect(mongoUrl, function(err, db) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
+function getAllReadings (db, callback) {
+  const collection = db.collection('reading')
 
-  db.close()
+  collection.find({}).toArray(callback)
+}
+
+MongoClient.connect(mongoUrl, function(error, db) {
+  if (error) {
+    console.log('Error: ', error)
+    return
+  }
+
+  console.log('Connected to MongoDB!')
+
+  getAllReadings(db, function (error, readings) {
+    if (error) {
+      console.log('Error: ', error)
+      return
+    }
+
+    console.log('All readings: ', readings)
+
+    db.close()
+  })
 })
+
+// Collection: reading
 
 // Serve the CSS as a static asset
 app.use(express.static(__dirname + '/'))
