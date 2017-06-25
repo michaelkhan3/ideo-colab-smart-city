@@ -31,8 +31,6 @@ function pushData () {
     const co2 = '7 %'
     const trafficJam = '8 %'
 
-    // "mongodb://smartcity:citysmart@ds135812.mlab.com:35812/smart_city")
-
     // You can ignore this. It pushed data to the front end
     io.emit('pushMessage', { 
       humidity,
