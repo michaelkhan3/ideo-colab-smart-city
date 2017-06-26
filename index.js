@@ -4,7 +4,7 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http)
 const MongoClient = require('mongodb').MongoClient
 
-const mongoUrl = 'mongodb://dashboard:boarddash@ds135812.mlab.com:35812/smart_city'
+const mongoUrl = 'mongodb://smartcity:citysmart@ds135812.mlab.com:35812/smart_city'
 
 function getAllReadings (db, callback) {
   const collection = db.collection('reading')
@@ -19,7 +19,7 @@ MongoClient.connect(mongoUrl, function(error, db) {
   }
 
   console.log('Connected to MongoDB!')
-  db.close()
+  //db.close()
 
   // Comment this back in if you want to see what's in the table
   getAllReadings(db, function (error, readings) {
@@ -49,6 +49,11 @@ app.use(express.static(__dirname + '/stylesheets'))
 app.get('/', function (req, res){
   res.sendFile(__dirname + '/index.html')
 })
+
+
+function pushData () {
+
+}
 
 function pushData () {
   setTimeout(function () {
@@ -86,6 +91,6 @@ io.on('connection', function (socket){
   })
 })
 
-http.listen(3000, function (){
+http.listen(process.env.PORT || 3000, function (){
   console.log('listening on localhost:3000')
 })
