@@ -4,7 +4,7 @@ var http = require('http').Server(app)
 var io = require('socket.io')(http)
 const MongoClient = require('mongodb').MongoClient
 
-const mongoUrl = 'mongodb://smartcity:citysmart@ds135812.mlab.com:35812/smart_city'
+const mongoUrl = 'mongodb://dashboard:boarddash@ds135812.mlab.com:35812/smart_city'
 
 function getAllReadings (db, callback) {
   const collection = db.collection('reading')
@@ -22,16 +22,16 @@ MongoClient.connect(mongoUrl, function(error, db) {
   db.close()
 
   // Comment this back in if you want to see what's in the table
-  // getAllReadings(db, function (error, readings) {
-  //   if (error) {
-  //     console.log('Error: ', error)
-  //     return
-  //   }
+  getAllReadings(db, function (error, readings) {
+    if (error) {
+      console.log('Error: ', error)
+      return
+    }
 
-  //   console.log('All readings: ', readings)
+    console.log('All readings: ', readings)
 
-  //   db.close()
-  // })
+    db.close()
+  })
 })
 
 // Collection: reading
