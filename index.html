@@ -16,9 +16,9 @@
       socket.on('pushMessage', function (message) {
       	console.log('------> pushMessage: ', JSON.stringify(message, null, 2))
 
-        $(humiditySelector).text(message.humidity).html()
+        $(humiditySelector).text(message.temp).html()
         $(rainSelector).text(message.rain).html()
-        $(gasSelector).text(message.gas).html()
+        $(gasSelector).text(message.pollution).html()
         $(trafficSelector).text(message.traffic).html()
         $(fireSelector).text(message.fire).html()
         $(floodingSelector).text(message.flooding).html()
